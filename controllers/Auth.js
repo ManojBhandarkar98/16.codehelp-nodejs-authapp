@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/User");
 
 //signup router
-exports.singup = async (req, res) => {
+exports.signup = async (req, res) => {
     try {
         //get data
         const { name, email, password, role } = req.body;
@@ -18,7 +18,7 @@ exports.singup = async (req, res) => {
         //secure password
         let hashedPassword;
         try {
-            hashedPassword = await bcrypt.hash(password)
+            hashedPassword =await bcrypt.hash(password,10)
         }
         catch (error) {
             return res.status(500).json({
