@@ -18,7 +18,7 @@ exports.signup = async (req, res) => {
         //secure password
         let hashedPassword;
         try {
-            hashedPassword =await bcrypt.hash(password,10)
+            hashedPassword = await bcrypt.hash(password, 10)
         }
         catch (error) {
             return res.status(500).json({
@@ -41,6 +41,37 @@ exports.signup = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: 'User cannot be registered, Please try again later'
+        })
+    }
+}
+
+//sign in router
+exports.signin = async (req, res) => {
+    try {
+        //fetch data
+        const { email, password } = req.body;
+        //validation on email
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please enter all details'
+            });
+        }
+        //check for registered user
+        const validateEmail = await User.findOne({ email });
+        //if user is not registered
+        if (!validateEmail) {
+            return res.status(401).json({
+                success: false,
+                message: 'This email is not register, Please signup'
+            });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Invalid credentials, Please try again later'
         })
     }
 }
