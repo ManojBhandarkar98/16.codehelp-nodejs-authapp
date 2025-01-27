@@ -1,7 +1,7 @@
 //auth, isStudent, isAdmin
 const jwt = require('jsonwebtoken');
 require("dotenv").config();
-
+//Authentication
 exports.auth = (req, res, next) => {
     try {
         //extract JWT token
@@ -36,7 +36,7 @@ exports.auth = (req, res, next) => {
         });
     }
 }
-
+//Authorization
 exports.isStudent = (req, res, next) => {
     try {
         if (req.user.role !== "Student") {
@@ -52,7 +52,7 @@ exports.isStudent = (req, res, next) => {
         });
     }
 }
-
+//Authorization
 exports.isAdmin = (req, res, next) => {
     try {
         if (req.user.role !== "Admin") {

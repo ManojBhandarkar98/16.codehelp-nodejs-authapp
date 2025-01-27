@@ -20,7 +20,8 @@ exports.signup = async (req, res) => {
         //secure password
         let hashedPassword;
         try {
-            hashedPassword = await bcrypt.hash(password, 10)
+            hashedPassword = await bcrypt.hash(password, 10);
+            
         }
         catch (error) {
             return res.status(500).json({
